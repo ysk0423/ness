@@ -6,6 +6,8 @@ Go 1.24.4 + Echoフレームワークを使用し、ドメイン駆動設計（D
 
 - **言語**: Go 1.24.4
 - **Webフレームワーク**: Echo v4.13.4
+- **データベース**: PostgreSQL 15
+- **ORM**: GORM
 - **アーキテクチャ**: ドメイン駆動設計（DDD）
 - **コンテナ**: Docker + Docker Compose
 - **テスティング**: testify/assert
@@ -51,18 +53,24 @@ Go 1.24.4 + Echoフレームワークを使用し、ドメイン駆動設計（D
    docker-compose up -d
    ```
 
-3. アプリケーションの確認
+3. データベースの初期化を待つ
+   ```bash
+   # PostgreSQLコンテナが起動するまで少し待つ
+   docker-compose logs -f postgres
+   ```
+
+4. アプリケーションの確認
    ```bash
    curl http://localhost:8080/
    # レスポンス: {"message":"Hello, World!"}
    ```
 
-4. ログの確認
+5. ログの確認
    ```bash
    docker-compose logs -f
    ```
 
-5. 開発環境の停止
+6. 開発環境の停止
    ```bash
    docker-compose down
    ```
@@ -112,21 +120,47 @@ go mod tidy
 
 ### Docker開発環境
 ```bash
-# 開発環境を起動
+# 開発環境を起動（アプリ + PostgreSQL）
 docker-compose up -d
 
 # ログを確認
 docker-compose logs -f
 
-# コンテナに入る
+# PostgreSQLのログのみ確認
+docker-compose logs -f postgres
+
+# アプリコンテナに入る
 docker-compose exec app bash
+
+# PostgreSQLコンテナに入る
+docker-compose exec postgres psql -U ness_user -d ness_db
 
 # 開発環境を停止
 docker-compose down
 
 # イメージを再ビルド
 docker-compose up -d --build
+
+# データベースデータも削除して完全リセット
+docker-compose down -v
 ```
+
+## データベース
+
+### 環境変数
+開発環境では以下の環境変数が設定されています：
+- `DB_HOST=postgres`
+- `DB_PORT=5432`
+- `DB_USER=ness_user`
+- `DB_PASSWORD=ness_password`
+- `DB_NAME=ness_db`
+
+### 接続情報
+- **ホスト**: localhost（ホストマシンから接続時）
+- **ポート**: 5432
+- **ユーザー**: ness_user
+- **パスワード**: ness_password
+- **データベース名**: ness_db
 
 ## CI/CD
 
