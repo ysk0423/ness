@@ -27,7 +27,7 @@ func TestHelloHandler_Hello(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			// Echoインスタンスを作成
 			e := echo.New()
-			
+
 			// リクエストを作成
 			req := httptest.NewRequest(http.MethodGet, "/", nil)
 			rec := httptest.NewRecorder()
