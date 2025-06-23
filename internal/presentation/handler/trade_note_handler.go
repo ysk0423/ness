@@ -12,10 +12,10 @@ import (
 )
 
 type TradeNoteHandler struct {
-	tradeNoteUsecase *usecase.TradeNoteUsecase
+	tradeNoteUsecase usecase.TradeNoteUsecaseInterface
 }
 
-func NewTradeNoteHandler(tradeNoteUsecase *usecase.TradeNoteUsecase) *TradeNoteHandler {
+func NewTradeNoteHandler(tradeNoteUsecase usecase.TradeNoteUsecaseInterface) *TradeNoteHandler {
 	return &TradeNoteHandler{
 		tradeNoteUsecase: tradeNoteUsecase,
 	}

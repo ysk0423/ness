@@ -8,6 +8,14 @@ import (
 	"ness/internal/domain/repository"
 )
 
+type TradeNoteUsecaseInterface interface {
+	CreateTradeNote(ctx context.Context, req *dto.TradeNoteRequest) (*dto.TradeNoteResponse, error)
+	GetTradeNote(ctx context.Context, id uint) (*dto.TradeNoteResponse, error)
+	GetAllTradeNotes(ctx context.Context) (*dto.TradeNoteListResponse, error)
+	UpdateTradeNote(ctx context.Context, id uint, req *dto.TradeNoteRequest) (*dto.TradeNoteResponse, error)
+	DeleteTradeNote(ctx context.Context, id uint) error
+}
+
 type TradeNoteUsecase struct {
 	tradeNoteRepo repository.TradeNoteRepository
 }
