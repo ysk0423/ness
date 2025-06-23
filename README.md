@@ -20,16 +20,23 @@ Go 1.24.4 + Echoフレームワークを使用し、ドメイン駆動設計（D
 /
 ├── main.go                          # アプリケーションのエントリーポイント
 ├── internal/
+│   ├── domain/                      # ドメイン層
+│   │   ├── entity/                  # エンティティ
+│   │   └── repository/              # リポジトリインターフェース
+│   ├── application/                 # アプリケーション層
+│   │   ├── dto/                     # データ転送オブジェクト
+│   │   └── usecase/                 # ユースケース
+│   ├── infrastructure/              # インフラストラクチャ層
+│   │   ├── database/                # データベース接続
+│   │   └── repository/              # リポジトリ実装
 │   └── presentation/                # プレゼンテーション層
-│       └── handler/                 # HTTPハンドラー
-│           ├── hello_handler.go     # Hello Worldハンドラー
-│           └── hello_handler_test.go # ハンドラーのテスト
+│       ├── handler/                 # HTTPハンドラー
+│       └── request/                 # リクエストバリデーション
 ├── Dockerfile                       # 本番用（distroless）
 ├── Dockerfile-local                 # 開発用（ホットリロード対応）
-├── docker-compose.yml               # ローカル開発環境
+├── docker-compose.yml               # ローカル開発環境（PostgreSQL含む）
 ├── .air.toml                        # ホットリロード設定
 └── .github/workflows/               # GitHub Actions
-    └── test.yml                     # テスト実行ワークフロー
 ```
 
 ## 環境構築
