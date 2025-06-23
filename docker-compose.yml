@@ -1,0 +1,13 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile-local
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+      - /app/tmp
+    environment:
+      - ENV=development
+    restart: unless-stopped
