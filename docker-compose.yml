@@ -10,4 +10,26 @@ services:
       - /app/tmp
     environment:
       - ENV=development
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=ness_user
+      - DB_PASSWORD=ness_password
+      - DB_NAME=ness_db
+    depends_on:
+      - postgres
     restart: unless-stopped
+
+  postgres:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=ness_user
+      - POSTGRES_PASSWORD=ness_password
+      - POSTGRES_DB=ness_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
